@@ -17,7 +17,7 @@ class GameManager
 
   def game_update(game_over = @game_over)
     @game_over = game_over
-    game_end if @game_over
+    #game_end if @game_over
   end
 
   def player_info

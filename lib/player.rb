@@ -12,7 +12,7 @@ class Player
   end
 
   def name=(string)
-    @name
+    @name = string
   end
 
   def icon
