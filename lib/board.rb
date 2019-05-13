@@ -1,7 +1,9 @@
-require "../lib/game_engine"
+require_relative  "game_engine"
 
 class Board
   include GameEngine
+  attr_accessor :slots, :player_one, :player_two, :is_game_over, :current_turn, :show_game_draw
+
   def initialize(p1, p2, d, game_manager)
     @display = d
     @game_manager = game_manager
@@ -27,10 +29,9 @@ class Board
     @current_turn = 9
   end
 
-  private
   def game_over?(_name = 'player')
     @show_player_win = "Player 🏅 #{player_select.name.upcase} 🥇 wins  💰💵 #{player_earnings.to_s.green} 🤑 🏆 ".light_blue
-    @show_game_draw = 'game draw' if @current_turn == 1
+
     win_x = ->(n) { n == "#{@player_one.icon} " }
     win_o = ->(n) { n == "#{@player_two.icon} " }
     # conditions
@@ -43,6 +44,7 @@ class Board
     seven  = [@slots[:one], @slots[:five], @slots[:nine]]
     eight  = [@slots[:three], @slots[:five], @slots[:seven]]
 
+    return @show_game_draw = 'game draw', @display.msg(@show_game_draw) if @current_turn == 0
     case true
     when one.all?(win_x) || one.all?(win_o) || two.all?(win_x) || two.all?(win_o) ||
         three.all?(win_x) || three.all?(win_o)
@@ -59,7 +61,9 @@ class Board
       @is_game_over = true
 
     else
-      puts @show_game_draw
+      @is_game_over = true
+      @show_game_draw = 'game draw'
+      @display.msg(@show_game_draw)
     end
 
     if @is_game_over

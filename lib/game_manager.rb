@@ -1,5 +1,5 @@
-require "../lib/game_engine"
-require "../lib/player"
+require_relative "game_engine"
+require_relative 'player'
 
 class GameManager
   include GameEngine
