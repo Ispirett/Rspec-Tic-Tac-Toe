@@ -1,8 +1,9 @@
 require_relative "game_engine"
-require_relative 'player'
+require_relative "player"
 
 class GameManager
   include GameEngine
+  attr_accessor :game_over
   @@game_count = 0
 
   def initialize(d, game_over = false)
@@ -27,14 +28,12 @@ class GameManager
 
     @display.msg("Player (2) Enter your name".light_blue)
     player_two = gets.chomp
-    p2 = Player.new(player_two,player_wager )
+    p2 = Player.new(player_two, player_wager)
     [p1, p2]
   end
 
-
-  private
   def player_wager
-    @display.msg("Player  enter bet amount".yellow )
+    @display.msg("Player  enter bet amount".yellow)
     bet = gets.chomp
     if bet.to_i == 0
       player_wager

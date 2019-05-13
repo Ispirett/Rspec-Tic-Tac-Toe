@@ -12,6 +12,7 @@ class Gui
 
   def msg(msg)
     return msg.each { |m| puts m } if msg.is_a? Array
-    puts "\t\t\t\t\t#{msg}"
+    puts "\t\t\t\t\t#{msg}" if msg != "test"
+    return "\t\t\t\t\t#{msg}"
   end
 end

@@ -4,13 +4,15 @@ module GameEngine
   FILE_NAME = "score.txt".freeze
 
   def open_file
-    puts File.open(FILE_NAME, "r", &:read)
+    File.open(FILE_NAME, "r", &:read)
+    return `tail -n 1 score.txt`
   end
 
   def create_or_append_file(data)
     File.open(FILE_NAME, "a+") do |file|
       file.puts(data)
     end
+    true
   end
 end
 
