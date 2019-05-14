@@ -1,4 +1,4 @@
-require_relative  "game_engine"
+require_relative 'game_engine'
 
 class Board
   include GameEngine
@@ -16,21 +16,21 @@ class Board
     @show_player_win = ''
     @show_game_draw = ''
     @slots = {
-        one: '__',
-        two: '__',
-        three: '__',
-        four: '__',
-        five: '__',
-        six: '__',
-        seven: '  ',
-        eight: '  ',
-        nine: '    '
+      one: '__',
+      two: '__',
+      three: '__',
+      four: '__',
+      five: '__',
+      six: '__',
+      seven: '  ',
+      eight: '  ',
+      nine: '    '
     }
     @current_turn = 9
   end
 
   def game_over?(_name = 'player')
-    @show_player_win = "Player 🏅 #{player_select.name.upcase} 🥇 wins  💰💵 #{player_earnings.to_s.green} 🤑 🏆 ".light_blue
+    # @show_player_win = "Player 🏅 #{player_select.name.upcase} 🥇 wins  💰💵 #{player_earnings.to_s.green} 🤑 🏆 ".light_blue
 
     win_x = ->(n) { n == "#{@player_one.icon} " }
     win_o = ->(n) { n == "#{@player_two.icon} " }
@@ -44,10 +44,11 @@ class Board
     seven  = [@slots[:one], @slots[:five], @slots[:nine]]
     eight  = [@slots[:three], @slots[:five], @slots[:seven]]
 
-    return @show_game_draw = 'game draw', @display.msg(@show_game_draw) if @current_turn == 0
+    return @show_game_draw = 'game draw' if @current_turn == 0
+
     case true
     when one.all?(win_x) || one.all?(win_o) || two.all?(win_x) || two.all?(win_o) ||
-        three.all?(win_x) || three.all?(win_o)
+      three.all?(win_x) || three.all?(win_o)
       @display.msg(@show_player_win)
       @is_game_over = true
 
@@ -56,13 +57,13 @@ class Board
       @is_game_over = true
 
     when six.all?(&win_x) || six.all?(&win_o) ||
-        seven.all?(&win_x) || seven.all?(&win_o) || eight.all?(&win_x) || eight.all?(&win_o)
+      seven.all?(&win_x) || seven.all?(&win_o) || eight.all?(&win_x) || eight.all?(&win_o)
       @display.msg(@show_player_win)
       @is_game_over = true
 
     else
       @is_game_over = true
-      @show_game_draw = 'game draw'
+      #@show_game_draw = 'game draw'
       @display.msg(@show_game_draw)
     end
 
@@ -73,6 +74,7 @@ class Board
 
   def player_select
     return @player_one unless @current_turn.even?
+
     @player_two if @current_turn.even?
   end
 
@@ -90,9 +92,8 @@ class Board
       @display.msg(@display.display_board(@slots))
       @update = true
     end
-
   end
-  
+
   def turn_update
     if @update == true
       @current_turn -= 1
@@ -105,20 +106,16 @@ class Board
     turn_update
   end
 
-
   def player_earnings
-     @player_one.bet_amount + @player_two.bet_amount
+    @player_one.bet_amount + @player_two.bet_amount
   end
 
-public
+  public
+
   def game_loop
     while @current_turn > 0
       update_board
       @game_manager.game_update(@is_game_over)
     end
   end
-
-
-
-
 end

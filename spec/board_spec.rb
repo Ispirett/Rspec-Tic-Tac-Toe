@@ -3,23 +3,19 @@ require_relative "../lib/board"
 require_relative "../lib/gui"
 require_relative '../lib/player'
 
-display = Gui.new
-player_one = Player.new('Isaac')
-player_two = Player.new('Armando')
-app = GameManager.new(display)
-game = Board.new(player_one, player_two, display, app)
-slots = game.slots
-p1 = game.player_one.icon + " "
-p2 = game.player_two.icon + " "
 
-#board.game_loop
-# display = Gui.new
-#game = Board.new(display)
-#slots = game.slots
-#p1 = "X "
-#p2 = "O "
 
 RSpec.describe Board do
+  let(:display) {Gui.new}
+  let(:player_one) {Player.new('Isaac')}
+  let(:player_two) {Player.new('Armando')}
+  let(:app) {GameManager.new(display)}
+  let(:game) {Board.new(player_one, player_two, display, app)}
+  let(:slots) {game.slots}
+  let(:p1) {game.player_one.icon + " "}
+  let(:p2) {game.player_two.icon + " "}
+  
+
   context "Test cases for tic tac toe game_over?" do
     it "test 1,2,3 columns " do
       slots[:one] = p1
