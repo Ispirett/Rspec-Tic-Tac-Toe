@@ -1,5 +1,7 @@
-require_relative '../lib/gui'
-require_relative '../lib/board'
+require_relative  "../lib/game_manager"
+require_relative "../lib/board"
+require_relative "../lib/gui"
+require_relative '../lib/player'
 
 
 
